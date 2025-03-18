@@ -1,6 +1,8 @@
 # Cuphead Boss Rush
 This mod adds an entirely new Boss Rush mode to the game. Fight all 40 Bosses back-to-back with only a single life and a single loadout!
 
+![Cuphead Boss Rush thumbnail](./image.jpg)
+
 ### Features:
 
 * **Boss Rush**
