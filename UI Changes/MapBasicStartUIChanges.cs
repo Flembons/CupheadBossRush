@@ -5,6 +5,10 @@ using System.Text;
 
 namespace HelluvaRush
 {
+    /*
+     * When Boss Rush is active, Elder Kettle's house entrance will be changed to display "RANDOMIZED BOSS RUSH".
+     * Otherwise, it will have the default text of "THE ELDER KETTLE"
+     */
     public class MapBasicStartUIChanges
     {
         public void Init()

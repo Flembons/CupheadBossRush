@@ -6,6 +6,10 @@ using System.Text;
 
 namespace HelluvaRush
 {
+    /*
+     * Changed the behavior of the Parryable object's in Ms. Chalice's tutorial. Normally, they would not be able to heal you or 
+     * give super meter, but the change to OnParryPrePause alters that so healing and super meter charge are now gained by parrying these
+     */
     public class ChaliceTutorialLevelParryableChanges
     {
         public void Init()

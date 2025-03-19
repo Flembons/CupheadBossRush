@@ -7,6 +7,11 @@ using UnityEngine;
 
 namespace HelluvaRush
 {
+    /*
+     * The gravestone in the DLC graveyard area has a special map loader, so it needed to be individually changed.
+     * Now interacting with the gravestone while Boss Rush is active will start a boss rush at the Angel/Devil fight
+     */
+
     public class MapGraveyardHandlerChanges
     {
         public void Init()
@@ -27,6 +32,7 @@ namespace HelluvaRush
                 Map.Current.players[1].animator.SetTrigger("Sleep");
             }
             yield return new WaitForSeconds(1f);
+
             if (BossRushManager.bossRushActive)
             {
                 BossRushManager.startBossRushAtIndex(Array.IndexOf<Levels>(BossRushManager.bossLevels, Levels.Graveyard));
@@ -35,6 +41,7 @@ namespace HelluvaRush
             {
                 SceneLoader.LoadScene(Scenes.scene_level_graveyard, SceneLoader.Transition.Blur, SceneLoader.Transition.Blur, SceneLoader.Icon.HourglassBroken, null);
             }
+
             yield break;
         }
     }

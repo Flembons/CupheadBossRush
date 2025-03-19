@@ -6,6 +6,13 @@ using UnityEngine;
 
 namespace HelluvaRush
 {
+    /*
+     * Boss Rush uses DicePalaceMainLevelGameManager's stats for keeping track of stats between levels. This means
+     * health and super meter are preserved between fights and not reset to the default values at the beginning of each fight
+     * 
+     * Additionally, DicePalaceMainLevelGameInfo's Init function was changed to make it so King Dice's fight automatically begins
+     * when the main casino level is loaded.
+     */
     public class DicePalaceChanges
     {
         public void Init()
@@ -57,6 +64,8 @@ namespace HelluvaRush
             DicePalaceMainLevelGameInfo.PLAYER_TWO_STATS.SuperCharge = 0.0f;
         }
 
+        // King Dice's behavior is changed in the Boss Rush so that his fight will immediately begin,
+        // ignoring the regular behavior of having to roll his dice
         public void LevelInit(On.DicePalaceMainLevelGameManager.orig_LevelInit orig, DicePalaceMainLevelGameManager self, LevelProperties.DicePalaceMain properties)
         {
             self.properties = properties;
@@ -64,8 +73,11 @@ namespace HelluvaRush
             self.kingDiceAni = ((Component)self.kingDice).GetComponent<Animator>();
             self.maxSpaces = self.allBoardSpaces.Length;
             self.GameSetup();
+
+            // If we're in a boss rush, set King Dice's board to be complete when the level loads
             if (BossRushManager.bossRushActive)
                 DicePalaceMainLevelGameInfo.PLAYER_SPACES_MOVED = 14;
+
             self.marker.position = self.boardSpacesObj[DicePalaceMainLevelGameInfo.PLAYER_SPACES_MOVED].Pivot.position;
             self.marker.rotation = self.boardSpacesObj[DicePalaceMainLevelGameInfo.PLAYER_SPACES_MOVED].Pivot.rotation;
             if (DicePalaceMainLevelGameInfo.PLAYED_INTRO_SFX)

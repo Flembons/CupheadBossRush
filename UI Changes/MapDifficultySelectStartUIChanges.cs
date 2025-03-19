@@ -9,6 +9,11 @@ using UnityEngine.UI;
 
 namespace HelluvaRush
 {
+    /*
+     * This class changes the text when selecting a boss node on the map. Normally, the display will have options for 
+     * Easy, Normal, and Hard difficulties. When Boss Rush is active, there will only be one option that reflects the 
+     * chosen Boss Rush difficulty.
+     */
     public class MapDifficultySelectStartUIChanges
     {
         public void Init()

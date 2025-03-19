@@ -7,6 +7,11 @@ namespace HelluvaRush
 {
     public class MapLevelLoaderChanges
     {
+        /*
+         * This class alters the behavior of all of the map nodes that are used to load each level of the game. 
+         * They will now check if Boss Rush is active, and start a boss rush at the current boss's fight if true
+         * Otherwise, the fight will be loaded as normal.
+         */
         public void Init()
         {
             On.MapLevelLoader.OnLoadLevel += OnLoadLevel;
@@ -18,6 +23,8 @@ namespace HelluvaRush
             AbstractMapInteractiveEntity.HasPopupOpened = false;
             AudioManager.HandleSnapshot(AudioManager.Snapshots.Paused.ToString(), 0.5f);
             AudioNoiseHandler.Instance.BoingSound();
+
+            // Check if the currently selected fight is in the bossLevels array and start a boss rush if boss rush is active
             if (Array.IndexOf<Levels>(BossRushManager.bossLevels, self.level) != -1 && BossRushManager.bossRushActive)
             {
                 BossRushManager.initBossLevels();
@@ -29,6 +36,7 @@ namespace HelluvaRush
                 SceneLoader.LoadLevel(self.level, SceneLoader.Transition.Iris);
         }
 
+        // Saltbaker's Bakery entrance uses a special loader, so its OnLoadLevel function needed to be altered
         private void OnLoadLevel(On.MapBakeryLoader.orig_OnLoadLevel orig, MapBakeryLoader self)
         {
             AbstractMapInteractiveEntity.HasPopupOpened = false;

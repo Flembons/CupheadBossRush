@@ -5,6 +5,18 @@ using System.Text;
 
 namespace HelluvaRush
 {
+    /*
+     * This class adds an entirely new options sub-menu to the pause menu that is displayed when "Boss Rush Options"
+     * is selected. This new sub-menu allows you to:
+     *          - Toggle Boss Rush On/Off
+     *          - Select the Boss Rush Difficulty: Simple, Regular, or Expert
+     *          - Toggle Resting after X Fights
+     *          - Toggle Healing between Fights
+     *          
+     * The new sub-menu works by hijacking the main options menu (Audio, Visual, Language, Controls) and renaming
+     * each of the text options to reflect the Boss Rush Options. There is definitely a better way to do this, my Unity skills
+     * are not that amazing, so I'd have to figure out how to do this properly in the future.
+     */
     public class OptionsGUIChanges
     {
         public void Init()

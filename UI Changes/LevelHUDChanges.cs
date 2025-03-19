@@ -7,7 +7,10 @@ using TMPro;
 
 namespace HelluvaRush
 {
-
+    /*
+     * A new counter was added to the HUD to keep track of how many Bosses are left in the Boss Rush
+     * When in a boss rush, there will now be a "BOSSES DEFEATED: X" counter above the hud in the bottom left
+     */
     public class LevelHUDChanges
     {
         public void Init()
@@ -29,6 +32,8 @@ namespace HelluvaRush
                 self.mugman.Init(player2, false);
             }
             self.cuphead.Init(player, false);
+
+            // Create a new TMP text object for the boss counter and place it in the bottom left of the screen
             BossRushManager.bossCounterObj = new GameObject("Boss Counter");
             if (!BossRushManager.inBossRush)
             {

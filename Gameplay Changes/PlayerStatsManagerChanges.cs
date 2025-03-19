@@ -53,6 +53,7 @@ namespace HelluvaRush
             }
             if (BossRushManager.inBossRush)
             {
+                // An intial check at the beginning of the boss rush to see if this is multiplayer or not
                 if (BossRushManager.bossRushJustStarted)
                 {
                     if (!BossRushManager.bossRushMultiplayer)
@@ -75,6 +76,8 @@ namespace HelluvaRush
             }
         }
 
+        // Adjusted the behavior of the HealerCharm so it is active during the Tutorial breaks in Boss Rush.
+        // This allows each player to heal 3 times when entering the tutorial breaks
         public void OnParry(On.PlayerStatsManager.orig_OnParry orig, PlayerStatsManager self, float multiplier = 1f, bool countParryTowardsScore = true)
         {
             if (((BossRushManager.inBossRush && (SceneLoader.CurrentLevel == Levels.ChaliceTutorial || SceneLoader.CurrentLevel == Levels.ShmupTutorial)) || self.Loadout.charm == Charm.charm_healer || (self.Loadout.charm == Charm.charm_curse && self.CurseCharmLevel >= 0)) && !Level.IsChessBoss)
@@ -118,8 +121,10 @@ namespace HelluvaRush
             AudioManager.Play("player_parry_power_up");
         }
 
+        
         private void HealerCharm(On.PlayerStatsManager.orig_HealerCharm orig, PlayerStatsManager self)
         {
+            // If we're in Boss Rush and in a tutorial, then allow for 3 additional healing opportunities
             if (BossRushManager.inBossRush && (SceneLoader.CurrentLevel == Levels.ChaliceTutorial || SceneLoader.CurrentLevel == Levels.ShmupTutorial))
             {
                 int healerHPReceived = self.HealerHPReceived;
