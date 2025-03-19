@@ -10,12 +10,20 @@ namespace HelluvaRush
 {
     public class LevelChanges
     {
+        /*
+         * This class changes the level Awake behavior to not reset stats between levels and load Saltbaker correctly regardless 
+         * of difficulty.
+         * 
+         * The win_cr for a Level has also been changed so that a level ending will not send you to the victory screen unless
+         * every boss in a boss rush has been defeated
+         */
         public void Init()
         {
             On.Level.Awake += Awake;
             On.LevelEnd.win_cr += win_cr;
         }
 
+        // Removes the CheckIfInABossesHub call while in a Boss Rush, and loads Saltbaker on Normal if the Boss Rush is set to Easy
         protected void Awake(On.Level.orig_Awake orig, Level self)
         {
             self.useGUILayout = false;
@@ -39,6 +47,8 @@ namespace HelluvaRush
             {
                 self.mode = Level.CurrentMode;
             }
+
+            // Saltbaker does not have an Easy difficulty, so an Easy Boss Rush will load Normal Saltbaker instead
             if (BossRushManager.bossRushActive)
             {
                 self.mode = BossRushManager.bossRushDiff;
@@ -72,6 +82,8 @@ namespace HelluvaRush
             SceneLoader.SetCurrentLevel(self.CurrentLevel);
         }
 
+        // The win behavior for a fight has been altered when Boss Rush is active. The fight will not end in a boss rush
+        // until all bosses have been defeated. When a boss dies, the next fight will be loaded
         private IEnumerator win_cr(On.LevelEnd.orig_win_cr orig, LevelEnd self, IEnumerator knockoutSFXCoroutine, Action onBossDeathCallback, Action explosionsCallback, Action explosionsFalloffCallback, Action explosionsEndCallback, AbstractPlayerController[] players, float bossDeathTime, bool goToWinScreen, bool isMausoleum, bool isDevil, bool isTowerOfPower)
         {
             PauseManager.Pause();
